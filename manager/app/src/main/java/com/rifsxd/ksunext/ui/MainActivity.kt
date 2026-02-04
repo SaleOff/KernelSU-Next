@@ -413,7 +413,6 @@ private fun BottomBar(navController: NavHostController) {
     val fullFeatured = isManager && !Natives.requireNewKernel() && rootAvailable()
 
     // Get current selected index with visible destinations
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     val visibleDestinations = remember(fullFeatured) {
         BottomBarDestination.entries.filter { fullFeatured || !it.rootRequired }
     }
@@ -431,111 +430,129 @@ private fun BottomBar(navController: NavHostController) {
         label = "selectedIndex"
     )
 
-    val itemSize = 64.dp
-    val itemCount = visibleDestinations.size
-    val horizontalPadding = 12.dp
-
-    Surface(
+    // Responsive padding based on screen width
+    BoxWithConstraints(
         modifier = Modifier
-            .wrapContentWidth()
+            .fillMaxWidth()
             .padding(
-                vertical = 16.dp + WindowInsets.navigationBars
+                bottom = WindowInsets.navigationBars
                     .asPaddingValues()
                     .calculateBottomPadding()
-            ),
-        shape = MaterialTheme.shapes.large,
-        tonalElevation = 3.dp,
-        shadowElevation = 8.dp
+            )
     ) {
-        NavigationBar(
+        val screenWidth = maxWidth
+        val horizontalScreenPadding = when {
+            screenWidth > 600.dp -> 32.dp // Tablet/Large screen
+            screenWidth > 400.dp -> 24.dp // Normal phone
+            else -> 16.dp // Small phone
+        }
+        
+        Box(
             modifier = Modifier
-                .width(itemSize * itemCount + horizontalPadding * 2),
-            tonalElevation = 0.dp,
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            windowInsets = WindowInsets(0.dp)
+                .fillMaxWidth()
+                .padding(horizontal = horizontalScreenPadding, vertical = 16.dp),
+            contentAlignment = Alignment.Center
         ) {
-            var totalWidth by remember { mutableStateOf(0) }
-            
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(80.dp)
-                    .padding(horizontal = horizontalPadding)
-                    .onSizeChanged { size ->
-                        totalWidth = size.width
-                    }
+            Surface(
+                modifier = Modifier.wrapContentWidth(),
+                shape = MaterialTheme.shapes.large,
+                tonalElevation = 3.dp,
+                shadowElevation = 8.dp
             ) {
-                // Animated sliding indicator
-                if (totalWidth > 0 && visibleDestinations.isNotEmpty()) {
-                    val itemWidth = totalWidth / visibleDestinations.size
+                val itemSize = 64.dp
+                val itemSpacing = 4.dp
+                val containerPadding = 8.dp // Reduced to match vertical padding
+                
+                // Calculate exact width based on items
+                val navBarWidth = (itemSize * visibleDestinations.size) + 
+                                 (itemSpacing * (visibleDestinations.size - 1)) + 
+                                 (containerPadding * 2)
+                
+                Box(
+                    modifier = Modifier
+                        .width(navBarWidth)
+                        .height(80.dp)
+                ) {
+                    var totalWidth by remember { mutableStateOf(0) }
+                    
                     Box(
                         modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(vertical = 8.dp)
-                            .offset {
-                                androidx.compose.ui.unit.IntOffset(
-                                    x = (itemWidth * animatedSelectedIndex).toInt(),
-                                    y = 0
-                                )
+                            .fillMaxSize()
+                            .padding(horizontal = containerPadding)
+                            .onSizeChanged { size ->
+                                totalWidth = size.width
                             }
-                            .width(with(LocalDensity.current) { itemWidth.toDp() }),
-                        contentAlignment = androidx.compose.ui.Alignment.Center
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(64.dp)
-                                .background(
-                                    color = MaterialTheme.colorScheme.secondaryContainer,
-                                    shape = MaterialTheme.shapes.large
-                                )
-                        )
-                    }
-                }
-                
-                // Navigation items
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
-                ) {
-                    visibleDestinations.forEach { destination ->
-                        val isCurrentDestOnBackStack by navController.isRouteOnBackStackAsState(destination.direction)
-                        
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight(),
-                            contentAlignment = androidx.compose.ui.Alignment.Center
-                        ) {
+                        // Animated sliding indicator
+                        if (totalWidth > 0 && visibleDestinations.isNotEmpty()) {
+                            val density = LocalDensity.current
+                            val itemSizePx = with(density) { itemSize.toPx() }
+                            val itemSpacingPx = with(density) { itemSpacing.toPx() }
+                            
+                            // Calculate offset: each item position = (itemSize + spacing) * index
+                            val indicatorOffset = (itemSizePx + itemSpacingPx) * animatedSelectedIndex
+                            
                             Box(
                                 modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(MaterialTheme.shapes.large)
-                                    .clickable {
-                                        if (isCurrentDestOnBackStack) {
-                                            navigator.popBackStack(destination.direction, false)
-                                        }
-                                        navigator.navigate(destination.direction) {
-                                            popUpTo(NavGraphs.root) {
-                                                saveState = true
-                                            }
-                                            launchSingleTop = true
-                                            restoreState = true
-                                        }
-                                    },
-                                contentAlignment = androidx.compose.ui.Alignment.Center
-                            ) {
-                                Icon(
-                                    if (isCurrentDestOnBackStack) destination.iconSelected else destination.iconNotSelected,
-                                    stringResource(destination.label),
-                                    tint = if (isCurrentDestOnBackStack) {
-                                        MaterialTheme.colorScheme.onSecondaryContainer
-                                    } else {
-                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    .fillMaxHeight()
+                                    .padding(vertical = 8.dp)
+                                    .offset {
+                                        androidx.compose.ui.unit.IntOffset(
+                                            x = indicatorOffset.toInt(),
+                                            y = 0
+                                        )
                                     }
+                                    .width(itemSize),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(itemSize)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.secondaryContainer,
+                                            shape = MaterialTheme.shapes.large
+                                        )
                                 )
+                            }
+                        }
+                        
+                        // Navigation items
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.spacedBy(itemSpacing),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            visibleDestinations.forEach { destination ->
+                                val isCurrentDestOnBackStack by navController.isRouteOnBackStackAsState(destination.direction)
+                                
+                                Box(
+                                    modifier = Modifier
+                                        .size(itemSize)
+                                        .clip(MaterialTheme.shapes.large)
+                                        .clickable {
+                                            if (isCurrentDestOnBackStack) {
+                                                navigator.popBackStack(destination.direction, false)
+                                            }
+                                            navigator.navigate(destination.direction) {
+                                                popUpTo(NavGraphs.root) {
+                                                    saveState = true
+                                                }
+                                                launchSingleTop = true
+                                                restoreState = true
+                                            }
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        if (isCurrentDestOnBackStack) destination.iconSelected else destination.iconNotSelected,
+                                        stringResource(destination.label),
+                                        tint = if (isCurrentDestOnBackStack) {
+                                            MaterialTheme.colorScheme.onSecondaryContainer
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurfaceVariant
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
