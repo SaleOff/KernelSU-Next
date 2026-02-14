@@ -151,10 +151,6 @@ class MainActivity : ComponentActivity() {
     var amoledModeState = mutableStateOf(false)
     private val handler = Handler(Looper.getMainLooper())
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase?.let { LocaleHelper.applyLanguage(it) })
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

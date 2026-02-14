@@ -8,7 +8,7 @@
     <string name="issue_report_github_link">https://github.com/KernelSU-Next/KernelSU-Next/issues</string>
     <string name="issue_report_telegram_link">https://t.me/ksunext</string>
     <string name="confirm">Confirm</string>
-    <string name="app_name" translatable="false">KernelSU Next</string>
+    <string name="app_name" translatable="false">ᗴɾɾσɾꑄմ</string>
     <string name="home">Home</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Click to install</string>
@@ -135,7 +135,7 @@
     <string name="module_updated">Updated</string>
     <string name="module_downloading">Downloading module: %s</string>
     <string name="module_start_downloading">Start downloading: %s</string>
-    <string name="new_version_available">New version %1$s (%2$d) is available, click to upgrade.</string>
+    <string name="new_version_available">New version %1$s (%2$d) is available, click to upgrade!</string>
     <string name="launch_app">Launch</string>
     <string name="close">Close</string>
     <string name="force_stop_app">Force stop</string>
@@ -148,7 +148,7 @@
     <string name="su_not_allowed">Couldn\'t grant Superuser access to %s</string>
     <string name="module_changelog">Changelog</string>
     <string name="settings_profile_template">App Profile template</string>
-    <string name="settings_profile_template_summary">Manage local and online template of App Profile</string>
+    <string name="settings_profile_template_summary">Manage local and online template of App Profile.</string>
     <string name="app_profile_template_create">Create template</string>
     <string name="app_profile_template_edit">Edit template</string>
     <string name="app_profile_template_id">ID</string>
@@ -170,7 +170,7 @@
     <string name="app_profile_template_import_empty">Clipboard is empty!</string>
     <string name="module_changelog_failed">Fetch changelog failed: %s</string>
     <string name="settings_check_update">Check for updates</string>
-    <string name="settings_check_update_summary">Automatically check for updates when opening the app</string>
+    <string name="settings_check_update_summary">Automatically check for updates when opening the app.</string>
     <string name="grant_root_failed">Failed to grant root! Tap to restart manager process.</string>
     <string name="action">Action</string>
     <string name="webui">WebUI</string>
@@ -203,7 +203,7 @@
     <string name="settings_disable_su">Disable su compatibility</string>
     <string name="settings_disable_su_summary">Temporarily disable the ability of any app to gain root privileges via the ⁠su command (existing root processes won\'t be affected).</string>
     <string name="settings_language">Language</string>
-    <string name="system_default">System default</string>
+    <string name="system_default">System default.</string>
     <string name="settings_legacyui">Use legacy UI</string>
     <string name="settings_legacyui_summary">Switch to the previous user interface style.</string>
     <string name="settings_banner">Enable banners</string>
@@ -226,7 +226,7 @@
     <string name="module_sort_action_first">Sort (Action first)</string>
     <string name="module_sort_webui_first">Sort (WebUI first)</string>
     <string name="settings_global_namespace_mode">Global namespace mode</string>
-    <string name="settings_global_namespace_mode_summary">All root sessions use the global mount namespace</string>
+    <string name="settings_global_namespace_mode_summary">All root sessions use the global mount namespace.</string>
     <string name="settings_disable_kernel_umount">Disable kernel umount</string>
     <string name="settings_disable_kernel_umount_summary">Temporarily disable kernel-level umount behavior controlled by KernelSU.</string>
     <string name="settings_disable_avc_spoof">Disable avc spoofing</string>
