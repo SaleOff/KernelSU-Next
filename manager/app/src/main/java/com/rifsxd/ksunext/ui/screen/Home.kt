@@ -820,7 +820,7 @@ private fun InfoCard() {
                     val content = listOfNotNull(
                         mountSystem,
                         meta?.name?.takeIf { it.isNotBlank() }
-                            ?: stringResource(R.string.home_not_installed),
+                            ?: "ᯓᡣ𐭩⋅˚｡‧ ଳ⋆.𓆡*:✧˚",
                         meta?.version?.takeIf { it.isNotBlank() }
                     ).joinToString(" | ")
 
