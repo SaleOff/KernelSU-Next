@@ -21,9 +21,8 @@
   <string name="disable">Vô hiệu hoá</string>
   <string name="enabled">Đã kích hoạt</string>
   <string name="disabled">Đã vô hiệu hoá</string>
-  <string name="home_android">Phiên bản Android</string>
   <string name="home_manager_version">Phiên bản Trình quản lý</string>
-  <string name="home_abi">ABI</string>
+  <string name="home_abi">Danh sách ABI</string>
   <string name="home_selinux_status">Trạng thái SELinux</string>
   <string name="selinux_status_disabled">Vô hiệu hoá</string>
   <string name="selinux_status_enforcing">Enforcing</string>
