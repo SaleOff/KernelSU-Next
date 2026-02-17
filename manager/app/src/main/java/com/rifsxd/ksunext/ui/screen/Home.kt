@@ -850,16 +850,16 @@ private fun InfoCard() {
 
                 Spacer(Modifier.height(16.dp))
                 InfoCardItem(
-                        label = stringResource(R.string.home_android),
-                        content = "${Build.VERSION.RELEASE} (${Build.VERSION.SDK_INT})",
-                        icon = Icons.Filled.Android,
-                )
-
-                Spacer(Modifier.height(16.dp))
-                InfoCardItem(
                         label = stringResource(R.string.home_abi),
                         content = Build.SUPPORTED_ABIS.joinToString(", "),
                         icon = Icons.Filled.Memory,
+                )
+                
+                Spacer(Modifier.height(16.dp))
+                InfoCardItem(
+                        label = "Fingerprint",
+                        content = Build.FINGERPRINT,
+                        icon = Icons.Filled.Fingerprint,
                 )
 
                 Spacer(Modifier.height(16.dp))
