@@ -907,11 +907,13 @@ fun IssueReportCard() {
                 IconButton(onClick = { uriHandler.openUri(githubIssueUrl) }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_github),
+                        contentDescription = stringResource(R.string.issue_report_github),
                     )
                 }
                 IconButton(onClick = { uriHandler.openUri(telegramUrl) }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_telegram),
+                        contentDescription = stringResource(R.string.issue_report_telegram),
                     )
                 }
             }
