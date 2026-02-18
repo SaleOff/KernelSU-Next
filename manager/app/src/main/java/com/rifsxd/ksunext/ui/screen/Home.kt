@@ -857,7 +857,7 @@ private fun InfoCard() {
                 
                 Spacer(Modifier.height(16.dp))
                 InfoCardItem(
-                        label = "Fingerprint",
+                        label = stringResource(R.string.home_fingerprint),
                         content = Build.FINGERPRINT,
                         icon = Icons.Filled.Fingerprint,
                 )
@@ -867,82 +867,6 @@ private fun InfoCard() {
                         label = stringResource(R.string.home_selinux_status),
                         content = getSELinuxStatus(),
                         icon = Icons.Filled.Security,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun NextCard() {
-    val uriHandler = LocalUriHandler.current
-    val url = stringResource(R.string.home_next_kernelsu_repo)
-
-    ElevatedCard {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    uriHandler.openUri(url)
-                }
-                .padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column {
-                Text(
-                    text = stringResource(R.string.home_next_kernelsu),
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = stringResource(R.string.home_next_kernelsu_body),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun EXperimentalCard() {
-    /*val uriHandler = LocalUriHandler.current
-    val url = stringResource(R.string.home_experimental_kernelsu_repo)
-    */
-
-    ElevatedCard {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                /*.clickable {
-                    uriHandler.openUri(url)
-                }
-                */
-                .padding(24.dp), verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Text(
-                    text = stringResource(R.string.home_experimental_kernelsu),
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = stringResource(R.string.home_experimental_kernelsu_body),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = stringResource(R.string.home_experimental_kernelsu_body_point_1),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.home_experimental_kernelsu_body_point_2),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.home_experimental_kernelsu_body_point_3),
-                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
@@ -983,13 +907,11 @@ fun IssueReportCard() {
                 IconButton(onClick = { uriHandler.openUri(githubIssueUrl) }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_github),
-                        contentDescription = stringResource(R.string.issue_report_github),
                     )
                 }
                 IconButton(onClick = { uriHandler.openUri(telegramUrl) }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_telegram),
-                        contentDescription = stringResource(R.string.issue_report_telegram),
                     )
                 }
             }
@@ -1044,7 +966,7 @@ private fun WarningCardPreview() {
     Column {
         WarningCard(message = "Warning message")
         WarningCard(
-            message = "Warning message ",
+            message = "Warning message",
             MaterialTheme.colorScheme.outlineVariant,
             onClick = {})
     }
