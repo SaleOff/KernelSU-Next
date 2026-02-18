@@ -23,6 +23,7 @@
   <string name="disabled">Đã vô hiệu hoá</string>
   <string name="home_manager_version">Phiên bản Trình quản lý</string>
   <string name="home_abi">Danh sách ABI</string>
+  <string name="home_fingerprint">Fingerprint</string>
   <string name="home_selinux_status">Trạng thái SELinux</string>
   <string name="selinux_status_disabled">Vô hiệu hoá</string>
   <string name="selinux_status_enforcing">Enforcing</string>
@@ -90,15 +91,6 @@
   <string name="proceed">Tiếp tục</string>
   <string name="cancel">Hủy bỏ</string>
   <string name="later">Để sau</string>
-  <string name="home_next_kernelsu">🔥 Bản dựng Next</string>
-  <string name="home_next_kernelsu_repo">https://github.com/KernelSU-Next/KernelSU-Next</string>
-  <string name="home_next_kernelsu_body">Nhánh thử nghiệm Next. Hãy xem trên GitHub!</string>
-  <string name="home_experimental_kernelsu">⚠️ Cảnh báo nhánh thử nghiệm cho nhà phát triển!</string>
-  <string name="home_experimental_kernelsu_repo">127.0.0.1</string>
-  <string name="home_experimental_kernelsu_body">ᗴɾɾσɾꑄմ là một phiên bản không chính thức dựa trên KernelSU, luôn có những thử nghiệm và cập nhật hàng ngày, nó có thể không ổn định.</string>
-  <string name="home_experimental_kernelsu_body_point_1"> • Tự chịu trách nghiệm: crashes, những thứ kì lạ, không vào được một vài ứng dụng (ngân hàng),... có thể xảy ra.</string>
-  <string name="home_experimental_kernelsu_body_point_2"> • Không bảo hành: Các nhà phát triển ᗴɾɾσɾꑄմ và bên thứ ba sẽ không chịu trách nghiệm cho hardbrick, bootloop, mất dữ liệu,...</string>
-  <string name="home_experimental_kernelsu_body_point_3"> • Dùng để thử nghiệm là chính: Chỉ dành cho những người có kỹ năng, kinh nghiệm và trải nghiệm.</string>
   <string name="about_source_code"><![CDATA[Xem mã nguồn tại %1$s]]></string>
   <string name="profile">Hồ sơ ứng dụng</string>
   <string name="profile_default">Mặc định</string>
