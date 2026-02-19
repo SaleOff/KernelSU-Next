@@ -8,7 +8,7 @@
     <string name="issue_report_github_link">https://github.com/KernelSU-Next/KernelSU-Next/issues</string>
     <string name="issue_report_telegram_link">https://t.me/ksunext</string>
     <string name="confirm">Confirm</string>
-    <string name="app_name" translatable="false">ᗴɾɾσɾꑄմ</string>
+    <string name="app_name" translatable="false">KernelSU Next</string>
     <string name="home">Home</string>
     <string name="home_not_installed">Not installed</string>
     <string name="home_click_to_install">Click to install</string>
@@ -18,13 +18,14 @@
     <string name="home_failure">KernelSU Next v2 signature not found in kernel! [ !KSU_NEXT || != size/hash ]</string>
     <string name="home_failure_tip">Ask your kernel developer to integrate KernelSU Next!</string>
     <string name="home_kernel">Kernel version</string>
+    <string name="hook_mode">Hook mode</string>
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="home_android">Android version</string>
     <string name="home_manager_version">Manager version</string>
     <string name="home_abi">ABI list</string>
-    <string name="home_fingerprint">Fingerprint</string>
     <string name="home_selinux_status">SELinux status</string>
     <string name="selinux_status_disabled">Disabled</string>
     <string name="selinux_status_enforcing">Enforcing</string>
@@ -67,7 +68,7 @@
     <string name="module_version_code">Code</string>
     <string name="module_update_json">UpdateJson</string>
     <string name="module_update_json_empty">Empty</string>
-    <string name="enable_developer_options">Developer options</string>
+    <string name="enable_developer_options">Enable developer options</string>
     <string name="enable_developer_options_summary">Show hidden settings and debug info relevant only for developers.</string>
     <string name="refresh">Refresh</string>
     <string name="show_system_apps">Show system apps</string>
@@ -158,7 +159,7 @@
     <string name="action">Action</string>
     <string name="webui">WebUI</string>
     <string name="open">Open</string>
-    <string name="enable_web_debugging">WebView debugging</string>
+    <string name="enable_web_debugging">Enable WebView debugging</string>
     <string name="enable_web_debugging_summary">Can be used to debug WebUI. Please enable only when needed.</string>
     <string name="direct_install">Direct install (Recommended)</string>
     <string name="select_file">Select a file</string>
@@ -185,6 +186,8 @@
     <string name="send_log">Share logs</string>
     <string name="settings_disable_su">Disable SU compatibility</string>
     <string name="settings_disable_su_summary">Temporarily disable the ability of any app to gain root privileges via the ⁠su command (existing root processes won\'t be affected).</string>
+    <string name="settings_language">Language</string>
+    <string name="system_default">System default.</string>
     <string name="settings_banner">Enable banners</string>
     <string name="settings_banner_summary">Show background banners for modules.</string>
     <string name="customization">Customization</string>
