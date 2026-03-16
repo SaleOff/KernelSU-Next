@@ -626,22 +626,6 @@ fun restartActivity(context: Context) {
     }
 }
 
-fun getSuSFS(): String {
-    return ShellUtils.fastCmd("$suSFSDaemonPath support")
-}
-
-fun getSuSFSVersion(): String {
-    return ShellUtils.fastCmd("$suSFSDaemonPath version")
-}
-
-fun getSuSFSVariant(): String {
-    return ShellUtils.fastCmd("$suSFSDaemonPath variant")
-}
-
-fun getSuSFSFeatures(): String {
-    return ShellUtils.fastCmd("$suSFSDaemonPath features")
-}
-
 fun setAppProfileTemplate(id: String, template: String): Boolean {
     val escapedTemplate = template.replace("\"", "\\\"")
     val cmd = """${getKsuDaemonPath()} profile set-template "$id" "$escapedTemplate'""""
