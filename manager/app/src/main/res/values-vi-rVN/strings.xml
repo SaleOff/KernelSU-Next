@@ -104,7 +104,7 @@
   <string name="profile_namespace_individual">Riêng biệt</string>
   <string name="profile_groups">Nhóm</string>
   <string name="profile_capabilities">Tính tương thích</string>
-  <string name="profile_selinux_context">Bối cảnh SELinux</string>
+  <string name="profile_selinux_context">Ngữ cảnh SELinux</string>
   <string name="profile_umount_modules">Umount modules</string>
   <string name="failed_to_update_app_profile">Cập nhật Hồ sơ ứng dụng cho %s thất bại</string>
   <string name="require_kernel_version">Phiên bản ᗴɾɾσɾꑄմ hiện tại %1$d quá thấp để trình quản lý hoạt động bình thường. Vui lòng cập nhật lên phiên bản %2$d hoặc cao hơn!</string>
@@ -205,12 +205,12 @@
   <string name="settings_enable_kernel_umount">Kernel umount</string>
   <string name="settings_enable_kernel_umount_summary">Umount modules ở cấp độ Kernel.</string>
   <string name="settings_enable_avc_spoof">Giả mạo nhật ký AVC</string>
-  <string name="settings_enable_avc_spoof_summary">Khắc phục lỗi rò rỉ ngữ cảnh SELinux do từ chối AVC trong nhật ký.</string>
+  <string name="settings_enable_avc_spoof_summary">Khắc phục lỗi rò rỉ ngữ cảnh SELinux do từ chối AVC gây ra trong nhật ký kiểm toán.</string>
   <string name="meta_module">Meta</string>
   <string name="donate">Donate</string>
   <string name="meta_module_screen">Meta Module</string>
   <string name="latest_version">Phiên bản mới nhất</string>
-  <string name="module_repo_screen">Thư viện</string>
+  <string name="module_repo_screen">Thư viện Module</string>
   <string name="loading">Đang load...</string>
   <string name="retry">Thử lại</string>
   <string name="error_loading_modules">Load modules lỗi</string>
