@@ -95,8 +95,7 @@ fun HomeScreen(navigator: DestinationsNavigator) {
 
     val context = LocalContext.current
     val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-    val developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
-    
+
     // Get scroll state for bottom bar tracking
     val bottomBarScrollState = LocalScrollState.current
 
@@ -218,7 +217,7 @@ fun HomeScreen(navigator: DestinationsNavigator) {
                 UpdateCard()
             }
 
-            InfoCard(autoExpand = developerOptionsEnabled)
+            InfoCard()
             IssueReportCard()
             Spacer(Modifier)
         }
@@ -833,11 +832,7 @@ private fun StatusCard(
                             )
                         }
 
-                        val versionText = if (!ksuVersionTag.isNullOrEmpty()) {
-                            stringResource(id = R.string.home_working_version, ksuVersionTag, ksuVersion ?: 0)
-                        } else {
-                            stringResource(id = R.string.home_working_version, "v0.0.0", ksuVersion ?: 0)
-                        }
+                        val versionText = stringResource(id = R.string.home_working_version, "v3.1.3", ksuVersion ?: 0)
                         Text(
                             text = versionText,
                             style = MaterialTheme.typography.bodySmall
@@ -908,23 +903,13 @@ fun WarningCard(
 }
 
 @Composable
-private fun InfoCard(autoExpand: Boolean = false) {
+private fun InfoCard() {
     val context = LocalContext.current
 
     val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
     val isManager = Natives.isManager
     val ksuVersion = if (isManager) Natives.version else null
-
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
-    val developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
-
-    LaunchedEffect(autoExpand) {
-        if (autoExpand) {
-            expanded = true
-        }
-    }   
 
     Card {
         Column(
@@ -968,31 +953,9 @@ private fun InfoCard(autoExpand: Boolean = false) {
                 val managerVersion = getManagerVersion(context)
                 InfoCardItem(
                     label = stringResource(R.string.home_manager_version),
-                    content = if (
-                        developerOptionsEnabled
-                    ) {
-                        "${managerVersion.first} (${managerVersion.second}) | UID: ${Natives.getManagerAppid()}"
-                    } else {
-                        "${managerVersion.first} (${managerVersion.second})"
-                    },
+                    content = "${managerVersion.first} (${managerVersion.second}) | UID: ${Natives.getManagerAppid()}",
                     icon = Icons.Filled.AutoAwesomeMotion,
                 )
-
-                if (ksuVersion != null) {
-
-                    val hookMode =
-                        Natives.getHookMode()
-                            .takeUnless { it.isNullOrBlank() }
-                            ?: stringResource(R.string.unavailable)
-
-                    Spacer(Modifier.height(16.dp))
-
-                    InfoCardItem(
-                        label   = stringResource(R.string.hook_mode),
-                        content = hookMode,
-                        icon    = Icons.Filled.Phishing,
-                    )
-                }
 
                 if (ksuVersion != null) {
                     Spacer(Modifier.height(16.dp))
@@ -1008,7 +971,7 @@ private fun InfoCard(autoExpand: Boolean = false) {
                     val content = listOfNotNull(
                         mountSystem,
                         meta?.name?.takeIf { it.isNotBlank() }
-                            ?: stringResource(R.string.home_not_installed),
+                            ?: "ᯓᡣ𐭩⋅˚｡‧ ଳ⋆.𓆡*:✧˚",
                         meta?.version?.takeIf { it.isNotBlank() }
                     ).joinToString(" | ")
 
@@ -1017,16 +980,6 @@ private fun InfoCard(autoExpand: Boolean = false) {
                         content = content,
                         icon = Icons.Filled.SettingsSuggest
                     )
-
-                    val suSFS = getSuSFS()
-                    if (suSFS == "Supported") {
-                        Spacer(Modifier.height(16.dp))
-                        InfoCardItem(
-                            label = stringResource(R.string.home_susfs_version),
-                            content = "${stringResource(R.string.supported)} | ${getSuSFSVersion()} (${getSuSFSVariant()})",
-                            icon = painterResource(R.drawable.ic_sus),
-                        )
-                    }
 
                     if (Natives.isZygiskEnabled()) {
                         Spacer(Modifier.height(16.dp))
@@ -1038,63 +991,34 @@ private fun InfoCard(autoExpand: Boolean = false) {
                     }
                 }
 
-                AnimatedVisibility(visible = expanded) {
-                    val uname = Os.uname()
-                    Column {
-                        Spacer(Modifier.height(16.dp))
-                        InfoCardItem(
-                            label = stringResource(R.string.home_kernel),
-                            content = "${uname.release} (${uname.machine})",
-                            icon = painterResource(R.drawable.ic_linux),
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-                        InfoCardItem(
-                            label = stringResource(R.string.home_android),
-                            content = "${Build.VERSION.RELEASE} (${Build.VERSION.SDK_INT})",
-                            icon = Icons.Filled.Android,
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-                        InfoCardItem(
-                            label = stringResource(R.string.home_abi),
-                            content = Build.SUPPORTED_ABIS.joinToString(", "),
-                            icon = Icons.Filled.Memory,
-                        )
-
-                        Spacer(Modifier.height(16.dp))
-                        InfoCardItem(
-                            label = stringResource(R.string.home_selinux_status),
-                            content = getSELinuxStatus(),
-                            icon = Icons.Filled.Security,
-                        )
-                    }
-                }
+                val uname = Os.uname()
+                Spacer(Modifier.height(16.dp))
+                InfoCardItem(
+                        label = stringResource(R.string.home_kernel),
+                        content = "${uname.release} (${uname.machine})",
+                        icon = painterResource(R.drawable.ic_linux),
+                )
 
                 Spacer(Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    val rotationAngle by animateFloatAsState(
-                        targetValue = if (expanded) 180f else 0f,
-                        animationSpec = tween(durationMillis = 300)
-                    )
-                    
-                    IconButton(
-                        onClick = { expanded = !expanded },
-                        modifier = Modifier.size(36.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.KeyboardArrowDown,
-                            contentDescription = if (expanded) "Show less" else "Show more",
-                            modifier = Modifier.graphicsLayer {
-                                rotationZ = rotationAngle
-                            }
-                        )
-                    }
-                }
+                InfoCardItem(
+                        label = stringResource(R.string.home_abi),
+                        content = Build.SUPPORTED_ABIS.joinToString(", "),
+                        icon = Icons.Filled.Memory,
+                )
+                
+                Spacer(Modifier.height(16.dp))
+                InfoCardItem(
+                        label = stringResource(R.string.home_fingerprint),
+                        content = Build.FINGERPRINT,
+                        icon = Icons.Filled.Fingerprint,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                InfoCardItem(
+                        label = stringResource(R.string.home_selinux_status),
+                        content = getSELinuxStatus(),
+                        icon = Icons.Filled.Security,
+                )
             }
         }
     }
