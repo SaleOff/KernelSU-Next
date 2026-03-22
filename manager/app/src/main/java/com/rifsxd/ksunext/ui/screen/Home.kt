@@ -832,7 +832,7 @@ private fun StatusCard(
                             )
                         }
 
-                        val versionText = stringResource(id = R.string.home_working_version, "v3.1.0", ksuVersion ?: 0)
+                        val versionText = stringResource(id = R.string.home_working_version, "v3.1.3", ksuVersion ?: 0)
                         Text(
                             text = versionText,
                             style = MaterialTheme.typography.bodySmall
