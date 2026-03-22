@@ -2,7 +2,7 @@ name: Build Manager
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "sync" ]
     paths:
       - '.github/workflows/build-manager.yml'
       - 'manager/**'
