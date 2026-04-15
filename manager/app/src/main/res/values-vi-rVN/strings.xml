@@ -250,5 +250,5 @@
     <string name="restore_success">Khôi phục thành công</string>
     <string name="restore_failed">Khôi phục thất bại</string>
     <string name="contributors">Thành viên dự án</string>
-    <string name="support">Hỗ trợ</string>
+    <string name="support">Donate</string>
 </resources>
