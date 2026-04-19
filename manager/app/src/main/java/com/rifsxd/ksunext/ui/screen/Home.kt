@@ -1051,35 +1051,36 @@ fun ContributorsCard() {
         Contributor(
             login = "rifsxd",
             name = "Rifat Azad",
-            githubUrl = "https://github.com/rifsxd",
             role = "Lead Developer",
-            donationUrl = "https://github.com/KernelSU-Next/KernelSU-Next/tree/dev?tab=readme-ov-file#-donations"
+            donationUrl = "https://github.com/rifsxd"
         ),
         Contributor(
             login = "tiann",
             name = "Weishu",
-            githubUrl = "https://github.com/tiann",
             role = "KernelSU Author",
-            donationUrl = "https://www.patreon.com/weishu"
+            donationUrl = "https://github.com/tiann"
         ),
         Contributor(
             login = "fatalcoder524",
-            githubUrl = "https://github.com/fatalcoder524",
             role = "Frontend Maintainer",
-            donationUrl = "https://github.com/sponsors/fatalcoder524"
+            donationUrl = "https://github.com/fatalcoder524"
         ),
         Contributor(
             login = "pershoot",
-            githubUrl = "https://github.com/pershoot",
             role = "Backend Maintainer",
-            donationUrl = "https://github.com/sponsors/pershoot"
+            donationUrl = "https://github.com/pershoot"
         ),
         Contributor(
             login = "maxsteeel",
             name = "Max",
-            githubUrl = "https://github.com/maxsteeel",
             role = "Legacy Maintainer",
-            donationUrl = "https://github.com/sponsors/maxsteeel"
+            donationUrl = "https://github.com/maxsteeel"
+        ),
+        Contributor(
+            login = "SaleOff",
+            name = "ꑄℭѧᝰ.ᐟ",
+            role = "ᗴɾɾσɾꑄմ Manager",
+            donationUrl = "https://github.com/SaleOff"
         )
     )
 
