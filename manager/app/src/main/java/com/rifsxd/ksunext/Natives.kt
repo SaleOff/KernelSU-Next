@@ -11,17 +11,7 @@ import kotlinx.parcelize.Parcelize
  */
 object Natives {
     // minimal supported kernel version
-    // 10915: allowlist breaking change, add app profile
-    // 10931: app profile struct add 'version' field
-    // 10946: add capabilities
-    // 10977: change groups_count and groups to avoid overflow write
-    // 11071: Fix the issue of failing to set a custom SELinux type.
-    // 12797: zygisk query and get manager uid.
-    // 32310: new get_allow_list ioctl
-    // 33070: SET_SEPOLICY ioctl
-    // 33075: add set_init_pgrp ioctl
-    // 33110: bump app profile version, migrate selinux domain
-    const val MINIMAL_SUPPORTED_KERNEL = 33110
+    const val MINIMAL_SUPPORTED_KERNEL = 32323
 
     const val KERNEL_SU_DOMAIN = "u:r:ksu:s0"
 
