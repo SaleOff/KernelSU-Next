@@ -201,10 +201,6 @@ class MainActivity : ComponentActivity() {
     val moduleViewModel: ModuleViewModel by viewModels()
     val superUserViewModel: SuperUserViewModel by viewModels()
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase?.let { LocaleHelper.applyLanguage(it) })
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

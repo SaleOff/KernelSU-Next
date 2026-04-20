@@ -50,7 +50,7 @@
   <string name="installed">已安装</string>
   <string name="uninstalled">已卸载</string>
   <string name="settings">设置</string>
-  <string name="reboot_userspace">软重启</string>
+  <string name="reboot_userspace"></string>
   <string name="reboot_recovery">重启至 Recovery</string>
   <string name="reboot_bootloader">重启至 Bootloader</string>
   <string name="reboot_download">重启至 Download</string>
@@ -181,7 +181,7 @@
   <string name="settings_banner">启用横幅</string>
   <string name="settings_banner_summary">显示模块背景横幅。</string>
   <string name="customization">个性化</string>
-  <string name="developer">开发者</string>
+  <string name="developer">开发者选项</string>
   <string name="sucompat_disabled">SU 兼容层已禁用</string>
   <string name="zygisk_required">需要 Zygisk</string>
   <string name="zygisk_status">Zygisk 注入</string>
@@ -247,4 +247,7 @@
   <string name="backup_failed">备份失败</string>
   <string name="restore_success">恢复成功</string>
   <string name="restore_failed">恢复失败</string>
+  <string name="jailbreak_mode">越狱模式</string>
+  <string name="contributors">贡献人员</string>
+  <string name="support">支持</string>
 </resources>
