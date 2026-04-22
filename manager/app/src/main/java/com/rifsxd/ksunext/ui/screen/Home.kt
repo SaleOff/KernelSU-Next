@@ -1040,10 +1040,17 @@ private fun InfoCard(autoExpand: Boolean = false) {
                     }
 
                     if (Natives.isZygiskEnabled()) {
+                        val zygiskName by produceState(initialValue = "") {
+                            value = withContext(Dispatchers.IO) { getZygiskImplementation("name") }
+                        }
+                        val zygiskVersion by produceState(initialValue = "") {
+                            value = withContext(Dispatchers.IO) { getZygiskImplementation("version") }
+                        }
+
                         Spacer(Modifier.height(16.dp))
                         InfoCardItem(
                             label = stringResource(R.string.zygisk_status),
-                            content = "${stringResource(R.string.enabled)} | ${getZygiskImplementation("name")} | ${getZygiskImplementation("version")}",
+                            content = "${stringResource(R.string.enabled)} | $zygiskName | $zygiskVersion",
                             icon = Icons.Filled.Vaccines
                         )
                     }
