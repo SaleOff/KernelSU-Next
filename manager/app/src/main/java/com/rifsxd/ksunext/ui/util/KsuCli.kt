@@ -588,28 +588,22 @@ fun zygiskRequired(dir: File): Boolean {
 }
 
 fun getZygiskImplementation(property: String): String {
-    val modulesPath = "/data/adb/modules"
-    val zygiskModuleIds = arrayOf("rezygisk", "zygisksu")
-
-    for (moduleId in zygiskModuleIds) {
-        val moduleDir = SuFile.open("$modulesPath/$moduleId")
-        if (!moduleDir.isDirectory) continue
-        if (SuFile.open("$modulesPath/$moduleId/disable").isFile ||
-            SuFile.open("$modulesPath/$moduleId/remove").isFile
-        ) continue
-
-        val propFile = SuFile.open("$modulesPath/$moduleId/module.prop")
-        if (!propFile.isFile) continue
-
-        val prop = Properties().apply { load(propFile.newInputStream()) }
-        prop.getProperty(property)?.let {
-            Log.i(TAG, "Zygisk $property: $it")
-            return it
+    val bins = arrayOf("zygiskd", "zygiskd64")
+    return SuFile.open("/data/adb/modules").listFiles()
+        ?.asSequence()
+        ?.filter { dir ->
+            dir.isDirectory &&
+            !SuFile.open("${dir.absolutePath}/disable").isFile &&
+            !SuFile.open("${dir.absolutePath}/remove").isFile &&
+            bins.any { SuFile.open("${dir.absolutePath}/bin/$it").isFile }
         }
-    }
-
-    Log.i(TAG, "Zygisk $property: None")
-    return "None"
+        ?.firstNotNullOfOrNull { dir ->
+            runCatching {
+                Properties()
+                    .apply { load(SuFile.open("${dir.absolutePath}/module.prop").newInputStream()) }
+                    .getProperty(property)
+            }.getOrNull()
+        } ?: "None"
 }
 
 fun refreshActivity(context: Context) {
