@@ -1039,20 +1039,12 @@ fun ModuleItem(
             Column {
                 val interactionSource = remember { MutableInteractionSource() }
 
-                var developerOptionsEnabled by rememberSaveable {
-                    mutableStateOf(
-                        prefs.getBoolean("enable_developer_options", false)
-                    )
-                }
+                val developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
 
                 val filterZygiskModules = Natives.isZygiskEnabled() || !module.zygiskRequired
                 
                 val zygiskImpl by produceState(key1 = module.id, initialValue = "") {
                     value = withContext(Dispatchers.IO) { getZygiskImplementation("name") }
-                }
-                
-                LaunchedEffect(Unit) {
-                    developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
                 }
 
                 Column(
