@@ -587,23 +587,47 @@ fun zygiskRequired(dir: File): Boolean {
     return (SuFile(dir, "zygisk").listFiles()?.size ?: 0) > 0
 }
 
-fun getZygiskImplementation(property: String): String {
-    val bins = arrayOf("zygiskd", "zygiskd64")
-    return SuFile.open("/data/adb/modules").listFiles()
-        ?.asSequence()
-        ?.filter { dir ->
-            dir.isDirectory &&
-            !SuFile.open("${dir.absolutePath}/disable").isFile &&
-            !SuFile.open("${dir.absolutePath}/remove").isFile &&
-            bins.any { SuFile.open("${dir.absolutePath}/bin/$it").isFile }
-        }
-        ?.firstNotNullOfOrNull { dir ->
-            runCatching {
-                Properties()
-                    .apply { load(SuFile.open("${dir.absolutePath}/module.prop").newInputStream()) }
-                    .getProperty(property)
-            }.getOrNull()
-        } ?: "None"
+data class ZygiskInfo(
+    val name: String,
+    val version: String
+)
+
+@Volatile
+private var cachedZygiskInfo: ZygiskInfo? = null
+
+suspend fun getZygiskImplementation(): ZygiskInfo {
+    cachedZygiskInfo?.let { return it }
+
+    return withContext(Dispatchers.IO) {
+        val bins = arrayOf("zygiskd", "zygiskd64")
+
+        val result = SuFile.open("/data/adb/modules").listFiles()?.firstNotNullOfOrNull { dir ->
+            if (!dir.isDirectory) return@firstNotNullOfOrNull null
+
+            val base = dir.absolutePath
+
+            if (SuFile.open("$base/disable").exists() ||
+                SuFile.open("$base/remove").exists()
+            ) return@firstNotNullOfOrNull null
+
+            if (!bins.any { SuFile.open("$base/bin/$it").exists() }) return@firstNotNullOfOrNull null
+
+            try {
+                val props = Properties()
+                SuFile.open("$base/module.prop").newInputStream().use(props::load)
+
+                ZygiskInfo(
+                    name = props.getProperty("name") ?: "Unknown",
+                    version = props.getProperty("version") ?: "Unknown"
+                )
+            } catch (_: Exception) {
+                null
+            }
+        } ?: ZygiskInfo("None", "None")
+
+        cachedZygiskInfo = result
+        result
+    }
 }
 
 fun refreshActivity(context: Context) {

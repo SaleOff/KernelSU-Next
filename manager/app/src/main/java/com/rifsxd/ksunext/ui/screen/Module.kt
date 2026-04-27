@@ -1043,8 +1043,8 @@ fun ModuleItem(
 
                 val filterZygiskModules = Natives.isZygiskEnabled() || !module.zygiskRequired
                 
-                val zygiskImpl by produceState(key1 = module.id, initialValue = "") {
-                    value = withContext(Dispatchers.IO) { getZygiskImplementation("name") }
+                val zygiskImpl by produceState(initialValue = "") {
+                    value = getZygiskImplementation().name
                 }
 
                 Column(
