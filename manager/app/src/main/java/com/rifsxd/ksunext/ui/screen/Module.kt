@@ -538,8 +538,7 @@ private fun ModuleList(
 
     val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
-    val hasShownWarning =
-        rememberSaveable { mutableStateOf(prefs.getBoolean("has_shown_warning", false)) }
+    val developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
 
     val loadingDialog = rememberLoadingDialog()
     val confirmDialog = rememberConfirmDialog()
@@ -766,9 +765,11 @@ private fun ModuleList(
                             onClick = {
                                 onClickModule(it.id, it.name, it.hasWebUi)
                             },
-                            expanded = expandedModuleId == module.id,
+                            expanded = if (developerOptionsEnabled) true else expandedModuleId == module.id,
                             onExpandToggle = {
-                                expandedModuleId = if (expandedModuleId == module.id) null else module.id
+                                if (!developerOptionsEnabled) {
+                                    expandedModuleId = if (expandedModuleId == module.id) null else module.id
+                                }
                             }
                         )
 
