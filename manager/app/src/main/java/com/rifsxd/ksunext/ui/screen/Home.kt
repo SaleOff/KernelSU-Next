@@ -969,39 +969,19 @@ private fun InfoCard() {
                 )
 
                 if (ksuVersion != null) {
+                    val metaModule = getMetaModule()
                     Spacer(Modifier.height(16.dp))
-                    
-                    val moduleViewModel: ModuleViewModel = viewModel()
-                    val meta = moduleViewModel.moduleList.firstOrNull {
-                        it.isMetaModule && it.enabled && !it.remove
-                    }
-
-                    val mountSystem = currentMountSystem()
-                        .ifBlank { stringResource(R.string.unavailable) }
-
-                    val content = listOfNotNull(
-                        mountSystem,
-                        meta?.name?.takeIf { it.isNotBlank() }
-                            ?: "ᯓᡣ𐭩⋅˚｡‧ ଳ⋆.𓆡*:✧˚",
-                        meta?.version?.takeIf { it.isNotBlank() }
-                    ).joinToString(" | ")
-
                     InfoCardItem(
-                        label = stringResource(R.string.home_mount_system),
-                        content = content,
+                        label = stringResource(R.string.home_metamodule_status),
+                        content = if (metaModule == "Installed") stringResource(R.string.installed) else stringResource(R.string.home_not_installed),
                         icon = Icons.Filled.SettingsSuggest
                     )
 
                     if (Natives.isZygiskEnabled()) {
-                        val zygiskInfo by produceState(initialValue = ZygiskInfo("", "")) {
-                            value = getZygiskImplementation()
-                        }
-
                         Spacer(Modifier.height(16.dp))
-
                         InfoCardItem(
                             label = stringResource(R.string.zygisk_status),
-                            content = "${stringResource(R.string.enabled)} | ${zygiskInfo.name} | ${zygiskInfo.version}",
+                            content = "${stringResource(R.string.enabled)}",
                             icon = Icons.Filled.Vaccines
                         )
                     }
