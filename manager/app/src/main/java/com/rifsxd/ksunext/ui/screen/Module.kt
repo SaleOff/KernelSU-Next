@@ -1042,10 +1042,6 @@ fun ModuleItem(
                 val developerOptionsEnabled = prefs.getBoolean("enable_developer_options", false)
 
                 val filterZygiskModules = Natives.isZygiskEnabled() || !module.zygiskRequired
-                
-                val zygiskImpl by produceState(initialValue = "") {
-                    value = getZygiskImplementation().name
-                }
 
                 Column(
                     modifier = Modifier
@@ -1099,7 +1095,7 @@ fun ModuleItem(
                                         )
                                     )
                                 }
-                                if (zygiskImpl.isNotBlank() && zygiskImpl != "None" && module.name == zygiskImpl && !module.remove) {
+                                if (module.isZygisk && !module.remove) {
                                     LabelItem(
                                         text = stringResource(R.string.zygisk),
                                         style = LabelItemDefaults.style.copy(
@@ -1447,7 +1443,8 @@ fun ModuleItemPreview() {
         isMetaModule = false,
         actionIconPath = null,
         webUiIconPath = null,
-        donate = ""
+        donate = "",
+        isZygisk = false,
     )
     ModuleItem(
         EmptyDestinationsNavigator,

@@ -805,10 +805,14 @@ fn list_module(path: &str) -> Vec<HashMap<String, String>> {
     modules
 }
 
-pub fn mount_system() -> Result<()> {
-    println!("Mount system: {}", defs::MOUNT_SYSTEM);
+pub fn is_metamodule_installed() -> Result<()> {
 
-    Ok(())
+    if metamodule::has_metamodule() {
+        println!("Installed");
+        return Ok(());
+    } else {
+        Err(anyhow!("Unsupported"))
+    }
 }
 
 pub fn list_modules() -> Result<()> {
