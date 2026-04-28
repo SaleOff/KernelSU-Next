@@ -79,7 +79,6 @@
     <string name="jailbreak_mode">Chế độ Jailbreak</string>
     <string name="reboot_to_apply">Khởi động lại để có hiệu lực</string>
     <string name="module_magisk_conflict">Các module bị vô hiệu hoá do xung đột với Magisk!</string>
-    <string name="home_mount_system">Cơ chế Mount</string>
     <string name="unavailable">Không khả dụng!</string>
     <string name="module_restore">Khôi phục Module</string>
     <string name="module_restore_message">Khôi phục các Module từ bản sao lưu gần nhất.</string>
@@ -251,4 +250,5 @@
     <string name="restore_failed">Khôi phục thất bại!</string>
     <string name="contributors">Thành viên dự án</string>
     <string name="support">GitHub</string>
+    <string name="home_metamodule_status">Trạng thái Meta-Module</string>
 </resources>
