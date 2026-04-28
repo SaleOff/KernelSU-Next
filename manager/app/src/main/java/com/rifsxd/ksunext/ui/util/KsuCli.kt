@@ -587,47 +587,8 @@ fun zygiskRequired(dir: File): Boolean {
     return (SuFile(dir, "zygisk").listFiles()?.size ?: 0) > 0
 }
 
-data class ZygiskInfo(
-    val name: String,
-    val version: String
-)
-
-@Volatile
-private var cachedZygiskInfo: ZygiskInfo? = null
-
-suspend fun getZygiskImplementation(): ZygiskInfo {
-    cachedZygiskInfo?.let { return it }
-
-    return withContext(Dispatchers.IO) {
-        val bins = arrayOf("zygiskd", "zygiskd64")
-
-        val result = SuFile.open("/data/adb/modules").listFiles()?.firstNotNullOfOrNull { dir ->
-            if (!dir.isDirectory) return@firstNotNullOfOrNull null
-
-            val base = dir.absolutePath
-
-            if (SuFile.open("$base/disable").exists() ||
-                SuFile.open("$base/remove").exists()
-            ) return@firstNotNullOfOrNull null
-
-            if (!bins.any { SuFile.open("$base/bin/$it").exists() }) return@firstNotNullOfOrNull null
-
-            try {
-                val props = Properties()
-                SuFile.open("$base/module.prop").newInputStream().use(props::load)
-
-                ZygiskInfo(
-                    name = props.getProperty("name") ?: "Unknown",
-                    version = props.getProperty("version") ?: "Unknown"
-                )
-            } catch (_: Exception) {
-                null
-            }
-        } ?: ZygiskInfo("None", "None")
-
-        cachedZygiskInfo = result
-        result
-    }
+fun isZygiskImpl(dir: File): Boolean {
+    return SuFile(dir, "bin/zygiskd").exists() || SuFile(dir, "bin/zygiskd64").exists()
 }
 
 fun refreshActivity(context: Context) {
@@ -648,6 +609,10 @@ fun restartActivity(context: Context) {
     if (context is Activity) {
         context.finish()
     }
+}
+
+fun getMetaModule(): String {
+    return ShellUtils.fastCmd("${getKsuDaemonPath()} module metamodule")
 }
 
 fun setAppProfileTemplate(id: String, template: String): Boolean {
