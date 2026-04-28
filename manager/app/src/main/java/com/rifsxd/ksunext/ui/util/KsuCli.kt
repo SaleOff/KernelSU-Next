@@ -611,22 +611,6 @@ fun restartActivity(context: Context) {
     }
 }
 
-fun getSuSFS(): String {
-    return ShellUtils.fastCmd("${getKsuDaemonPath()} susfs support")
-}
-
-fun getSuSFSVersion(): String {
-    return ShellUtils.fastCmd("${getKsuDaemonPath()} susfs version")
-}
-
-fun getSuSFSVariant(): String {
-    return ShellUtils.fastCmd("${getKsuDaemonPath()} susfs variant")
-}
-
-fun getSuSFSFeatures(): String {
-    return ShellUtils.fastCmd("${getKsuDaemonPath()} susfs features")
-}
-
 fun getMetaModule(): String {
     return ShellUtils.fastCmd("${getKsuDaemonPath()} module metamodule")
 }
