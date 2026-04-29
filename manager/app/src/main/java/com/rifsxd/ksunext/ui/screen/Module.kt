@@ -112,10 +112,9 @@ fun ModuleScreen(navigator: DestinationsNavigator) {
         }
     }
 
-    val isSafeMode = Natives.isSafeMode
     val hasMagisk = hasMagisk()
 
-    val hideInstallButton = isSafeMode || hasMagisk
+    val hideInstallButton = hasMagisk
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
