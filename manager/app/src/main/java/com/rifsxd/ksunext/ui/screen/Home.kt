@@ -1006,35 +1006,14 @@ private fun InfoCard(autoExpand: Boolean = false) {
                 }
 
                 if (ksuVersion != null) {
-                    
-                    // val moduleViewModel: ModuleViewModel = viewModel()
-                    // val meta = moduleViewModel.moduleList.firstOrNull {
-                    //     it.isMetaModule && it.enabled && !it.remove
-                    // }
-
-                    // val mountSystem = currentMountSystem()
-                    //     .ifBlank { stringResource(R.string.unavailable) }
-
-                    // val content = listOfNotNull(
-                    //     mountSystem,
-                    //     meta?.name?.takeIf { it.isNotBlank() }
-                    //         ?: stringResource(R.string.home_not_installed),
-                    //     meta?.version?.takeIf { it.isNotBlank() }
-                    // ).joinToString(" | ")
-
-                    // getMetaModule
-
-                    // InfoCardItem(
-                    //     label = stringResource(R.string.home_mount_system),
-                    //     content = mountSystem,
-                    //     icon = Icons.Filled.SettingsSuggest
-                    // )
-
                     val metaModule = getMetaModule()
+                    val moduleViewModel: ModuleViewModel = viewModel()
+                    val metaInfo = moduleViewModel.moduleList.firstOrNull { it.isMetaModule }
+                    val metaDetail = if (metaInfo != null) " | ${metaInfo.name} | ${metaInfo.version}" else ""
                     Spacer(Modifier.height(16.dp))
                     InfoCardItem(
                         label = stringResource(R.string.home_metamodule_status),
-                        content = if (metaModule == "Installed") stringResource(R.string.installed) else stringResource(R.string.home_not_installed),
+                        content = if (metaModule == "Installed") stringResource(R.string.installed) + metaDetail else stringResource(R.string.home_not_installed),
                         icon = Icons.Filled.SettingsSuggest
                     )
 
@@ -1049,15 +1028,12 @@ private fun InfoCard(autoExpand: Boolean = false) {
                     }
 
                     if (Natives.isZygiskEnabled()) {
-                        // val zygiskInfo by produceState(initialValue = ZygiskInfo("", "")) {
-                        //     value = getZygiskImplementation()
-                        // }
-
                         Spacer(Modifier.height(16.dp))
-
+                        val zygiskInfo = moduleViewModel.moduleList.firstOrNull { it.isZygisk }
+                        val zygiskDetail = if (zygiskInfo != null) " | ${zygiskInfo.name} | ${zygiskInfo.version}" else ""
                         InfoCardItem(
                             label = stringResource(R.string.zygisk_status),
-                            content = "${stringResource(R.string.enabled)}", // | ${zygiskInfo.name} | ${zygiskInfo.version}",
+                            content = stringResource(R.string.enabled) + zygiskDetail,
                             icon = Icons.Filled.Vaccines
                         )
                     }
