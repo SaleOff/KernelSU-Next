@@ -1069,6 +1069,26 @@ private fun InfoCard(autoExpand: Boolean = false) {
                             content = getSELinuxStatus(),
                             icon = Icons.Filled.Security,
                         )
+
+                        
+                        val statusInt = kotlin.runCatching {
+                            Os.prctl(21, 0, 0, 0, 0)
+                        }.getOrDefault(-1)
+
+                        val seccompStatus = when (statusInt) {
+                            -1 -> stringResource(R.string.seccomp_status_not_supported)
+                            0 -> stringResource(R.string.seccomp_status_disabled)
+                            1 -> stringResource(R.string.seccomp_status_strict)
+                            2 -> stringResource(R.string.seccomp_status_filter)
+                            else -> stringResource(R.string.seccomp_status_unknown)
+                        }
+
+                        Spacer(Modifier.height(16.dp))
+                        InfoCardItem(
+                            label = stringResource(R.string.home_seccomp_status),
+                            content = seccompStatus,
+                            icon = Icons.Filled.LocalPolice
+                        )
                     }
                 }
 
