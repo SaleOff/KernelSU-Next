@@ -249,6 +249,9 @@ class MainActivity : ComponentActivity() {
                 }
                 val navigator = navController.rememberDestinationsNavigator()
 
+                val isManager = Natives.isManager
+                val fullFeatured = isManager && !Natives.requireNewKernel() && rootAvailable()
+
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
 
@@ -346,8 +349,8 @@ class MainActivity : ComponentActivity() {
                                 previousScrollOffset = previousScrollOffset
                             )
                         ) {
-                            val visibleDestinations = remember {
-                                BottomBarDestination.entries
+                            val visibleDestinations = remember(fullFeatured) {
+                                BottomBarDestination.entries.filter { fullFeatured || !it.rootRequired }
                             }
 
                             fun navigateToIndex(index: Int) {
@@ -363,15 +366,17 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
+                            val hostModifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
+                                .horizontalSwipeNavigator(
+                                    currentRoute = currentRoute,
+                                    destinations = visibleDestinations,
+                                    onNavigate = { navigateToIndex(it) }
+                                )
+
                             DestinationsNavHost(
-                                modifier = Modifier
-                                    .padding(innerPadding)
-                                    .fillMaxSize()
-                                    .horizontalSwipeNavigator(
-                                        currentRoute = currentRoute,
-                                        destinations = visibleDestinations,
-                                        onNavigate = { navigateToIndex(it) }
-                                    ),
+                                modifier = hostModifier,
                                 navGraph = NavGraphs.root,
                                 navController = navController,
                                 defaultTransitions = object : NavHostAnimatedDestinationStyle() {
