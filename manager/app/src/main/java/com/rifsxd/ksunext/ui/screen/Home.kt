@@ -1013,7 +1013,14 @@ private fun InfoCard(autoExpand: Boolean = false) {
                     Spacer(Modifier.height(16.dp))
                     InfoCardItem(
                         label = stringResource(R.string.home_metamodule_status),
-                        content = if (metaModule == "Installed") stringResource(R.string.installed) + metaDetail else stringResource(R.string.home_not_installed),
+                        content = when {
+                            metaModule == "Installed" && metaInfo != null && !metaInfo.enabled ->
+                                stringResource(R.string.disabled) + metaDetail
+                            metaModule == "Installed" ->
+                                stringResource(R.string.installed) + metaDetail
+                            else ->
+                                stringResource(R.string.home_not_installed)
+                        },
                         icon = Icons.Filled.SettingsSuggest
                     )
 
@@ -1029,7 +1036,7 @@ private fun InfoCard(autoExpand: Boolean = false) {
 
                     if (Natives.isZygiskEnabled()) {
                         Spacer(Modifier.height(16.dp))
-                        val zygiskInfo = moduleViewModel.moduleList.firstOrNull { it.isZygisk }
+                        val zygiskInfo = moduleViewModel.moduleList.firstOrNull { it.isZygisk && it.enabled }
                         val zygiskDetail = if (zygiskInfo != null) " | ${zygiskInfo.name} | ${zygiskInfo.version}" else ""
                         InfoCardItem(
                             label = stringResource(R.string.zygisk_status),
