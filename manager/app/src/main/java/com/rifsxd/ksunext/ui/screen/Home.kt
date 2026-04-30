@@ -996,19 +996,19 @@ private fun InfoCard() {
                         content = Build.SUPPORTED_ABIS.joinToString(", "),
                         icon = Icons.Filled.Memory,
                 )
-                
-                Spacer(Modifier.height(16.dp))
-                InfoCardItem(
-                        label = stringResource(R.string.home_fingerprint),
-                        content = Build.FINGERPRINT,
-                        icon = Icons.Filled.Fingerprint,
-                )
 
                 Spacer(Modifier.height(16.dp))
                 InfoCardItem(
                         label = stringResource(R.string.home_selinux_status),
                         content = getSELinuxStatus(),
                         icon = Icons.Filled.Security,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                InfoCardItem(
+                        label = stringResource(R.string.home_fingerprint),
+                        content = Build.FINGERPRINT,
+                        icon = Icons.Filled.Fingerprint,
                 )
 
                 val statusInt = kotlin.runCatching {
